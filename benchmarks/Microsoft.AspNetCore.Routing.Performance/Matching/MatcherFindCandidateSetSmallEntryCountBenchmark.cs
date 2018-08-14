@@ -29,7 +29,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
 
         private void SetupEndpoints()
         {
-            Endpoints = new MatcherEndpoint[10];
+            Endpoints = new RouteEndpoint[10];
             Endpoints[0] = CreateEndpoint("/another-really-cool-entry");
             Endpoints[1] = CreateEndpoint("/Some-Entry");
             Endpoints[2] = CreateEndpoint("/a/path/with/more/segments");

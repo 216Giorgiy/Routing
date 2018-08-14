@@ -10,7 +10,7 @@ namespace Microsoft.AspNetCore.Routing
 {
     internal static class EndpointFactory
     {
-        public static MatcherEndpoint CreateMatcherEndpoint(
+        public static RouteEndpoint CreateRouteEndpoint(
             string template,
             object defaults = null,
             object constraints = null,
@@ -25,8 +25,8 @@ namespace Microsoft.AspNetCore.Routing
                 d.Add(new RouteValuesAddressMetadata(null, new RouteValueDictionary(requiredValues)));
             }
 
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template, defaults, constraints),
                 order,
                 new EndpointMetadataCollection(d),

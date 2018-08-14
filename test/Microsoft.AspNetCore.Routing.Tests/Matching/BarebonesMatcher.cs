@@ -46,12 +46,12 @@ namespace Microsoft.AspNetCore.Routing.Matching
 
         public sealed class InnerMatcher : Matcher
         {
-            public readonly MatcherEndpoint Endpoint;
+            public readonly RouteEndpoint Endpoint;
 
             private readonly string[] _segments;
             private readonly Candidate[] _candidates;
 
-            public InnerMatcher(string[] segments, MatcherEndpoint endpoint)
+            public InnerMatcher(string[] segments, RouteEndpoint endpoint)
             {
                 _segments = segments;
                 Endpoint = endpoint;

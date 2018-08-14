@@ -48,7 +48,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
 
         private void SetupEndpoints()
         {{
-            _endpoints = new MatcherEndpoint[{3}];
+            _endpoints = new RouteEndpoint[{3}];
 {0}
         }}
 

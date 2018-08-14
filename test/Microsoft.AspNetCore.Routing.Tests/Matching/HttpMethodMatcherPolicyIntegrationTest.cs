@@ -287,7 +287,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
             MatcherAssert.AssertMatch(feature, endpoint2, ignoreValues: true);
         }
 
-        private static Matcher CreateMatcher(params MatcherEndpoint[] endpoints)
+        private static Matcher CreateMatcher(params RouteEndpoint[] endpoints)
         {
             var services = new ServiceCollection()
                 .AddOptions()
@@ -324,7 +324,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
 
             return (httpContext, feature);
         }
-        internal static MatcherEndpoint CreateEndpoint(
+        internal static RouteEndpoint CreateEndpoint(
             string template,
             object defaults = null,
             object constraints = null,
@@ -339,15 +339,15 @@ namespace Microsoft.AspNetCore.Routing.Matching
             }
 
             var displayName = "endpoint: " + template + " " + string.Join(", ", httpMethods ?? new[] { "(any)" });
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template, defaults, constraints),
                 order,
                 new EndpointMetadataCollection(metadata),
                 displayName);
         }
 
-        internal (Matcher matcher, MatcherEndpoint endpoint) CreateMatcher(string template)
+        internal (Matcher matcher, RouteEndpoint endpoint) CreateMatcher(string template)
         {
             var endpoint = CreateEndpoint(template);
             return (CreateMatcher(endpoint), endpoint);

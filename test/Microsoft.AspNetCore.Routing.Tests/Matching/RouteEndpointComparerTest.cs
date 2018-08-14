@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Microsoft.AspNetCore.Routing.Matching
 {
-    public class MatcherEndpointComparerTest
+    public class RouteEndpointComparerTest
     {
         [Fact]
         public void Compare_PrefersOrder_IfDifferent()
@@ -198,7 +198,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
             var endpoint7 = CreateEndpoint("/bar{baz}", order: 0, new TestMetadata1(), new TestMetadata2());
 
             // Endpoints listed in reverse of the desired order.
-            var list = new List<MatcherEndpoint>() { endpoint7, endpoint6, endpoint5, endpoint4, endpoint3, endpoint2, endpoint1, };
+            var list = new List<RouteEndpoint>() { endpoint7, endpoint6, endpoint5, endpoint4, endpoint3, endpoint2, endpoint1, };
 
             var comparer = CreateComparer(new TestMetadata1Policy(), new TestMetadata2Policy());
 
@@ -217,19 +217,19 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 e => Assert.Same(endpoint7, e));
         }
 
-        private static MatcherEndpoint CreateEndpoint(string template, int order, params object[] metadata)
+        private static RouteEndpoint CreateEndpoint(string template, int order, params object[] metadata)
         {
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template),
                 order,
                 new EndpointMetadataCollection(metadata),
                 "test: " + template);
         }
 
-        private static MatcherEndpointComparer CreateComparer(params IEndpointComparerPolicy[] policies)
+        private static RouteEndpointComparer CreateComparer(params IEndpointComparerPolicy[] policies)
         {
-            return new MatcherEndpointComparer(policies);
+            return new RouteEndpointComparer(policies);
         }
 
         private class TestMetadata1

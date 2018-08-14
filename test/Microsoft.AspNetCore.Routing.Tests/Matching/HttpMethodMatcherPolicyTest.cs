@@ -276,7 +276,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 });
         }
 
-        private static MatcherEndpoint CreateEndpoint(string template, HttpMethodMetadata httpMethodMetadata)
+        private static RouteEndpoint CreateEndpoint(string template, HttpMethodMetadata httpMethodMetadata)
         {
             var metadata = new List<object>();
             if (httpMethodMetadata != null)
@@ -284,8 +284,8 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 metadata.Add(httpMethodMetadata);
             }
 
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template),
                 0,
                 new EndpointMetadataCollection(metadata),

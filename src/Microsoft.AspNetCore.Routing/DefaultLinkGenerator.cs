@@ -97,7 +97,7 @@ namespace Microsoft.AspNetCore.Routing
 
         internal string MakeLink(
             HttpContext httpContext,
-            MatcherEndpoint endpoint,
+            RouteEndpoint endpoint,
             RouteValueDictionary ambientValues,
             RouteValueDictionary explicitValues,
             LinkOptions options)
@@ -232,7 +232,7 @@ namespace Microsoft.AspNetCore.Routing
 
         private bool MatchesConstraints(
             HttpContext httpContext,
-            MatcherEndpoint endpoint,
+            RouteEndpoint endpoint,
             RouteValueDictionary routeValues)
         {
             if (routeValues == null)
@@ -311,7 +311,7 @@ namespace Microsoft.AspNetCore.Routing
             return new RouteValueDictionary();
         }
 
-        private IEnumerable<MatcherEndpoint> FindEndpoints<TAddress>(TAddress address)
+        private IEnumerable<RouteEndpoint> FindEndpoints<TAddress>(TAddress address)
         {
             var finder = _serviceProvider.GetRequiredService<IEndpointFinder<TAddress>>();
             var endpoints = finder.FindEndpoints(address);
@@ -320,7 +320,7 @@ namespace Microsoft.AspNetCore.Routing
                 return null;
             }
 
-            var matcherEndpoints = endpoints.OfType<MatcherEndpoint>();
+            var matcherEndpoints = endpoints.OfType<RouteEndpoint>();
             if (!matcherEndpoints.Any())
             {
                 return null;

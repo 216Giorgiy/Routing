@@ -851,14 +851,14 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 policies);
         }
 
-        private MatcherEndpoint CreateEndpoint(
+        private RouteEndpoint CreateEndpoint(
             string template,
             object defaults = null,
             object constraints = null,
             params object[] metadata)
         {
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template, new RouteValueDictionary(defaults), new RouteValueDictionary(constraints)),
                 0,
                 new EndpointMetadataCollection(metadata),

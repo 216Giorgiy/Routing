@@ -15,10 +15,10 @@ namespace Microsoft.AspNetCore.Routing.Matching
     // so we're reusing the services here.
     public class DfaMatcherTest
     {
-        private MatcherEndpoint CreateEndpoint(string template, int order, object defaults = null, EndpointMetadataCollection metadata = null)
+        private RouteEndpoint CreateEndpoint(string template, int order, object defaults = null, EndpointMetadataCollection metadata = null)
         {
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template, defaults, constraints: null),
                 order,
                 metadata ?? EndpointMetadataCollection.Empty,

@@ -13,15 +13,15 @@ namespace Microsoft.AspNetCore.Routing.Matching
     internal class RouteMatcherBuilder : MatcherBuilder
     {
         private readonly IInlineConstraintResolver _constraintResolver;
-        private readonly List<MatcherEndpoint> _endpoints;
+        private readonly List<RouteEndpoint> _endpoints;
 
         public RouteMatcherBuilder()
         {
             _constraintResolver = new DefaultInlineConstraintResolver(Options.Create(new RouteOptions()));
-            _endpoints = new List<MatcherEndpoint>();
+            _endpoints = new List<RouteEndpoint>();
         }
 
-        public override void AddEndpoint(MatcherEndpoint endpoint)
+        public override void AddEndpoint(RouteEndpoint endpoint)
         {
             _endpoints.Add(endpoint);
         }
@@ -73,10 +73,10 @@ namespace Microsoft.AspNetCore.Routing.Matching
         private class SelectorRouter : IRouter
         {
             private readonly EndpointSelector _selector;
-            private readonly MatcherEndpoint[] _candidates;
+            private readonly RouteEndpoint[] _candidates;
             private readonly int[] _scores;
 
-            public SelectorRouter(EndpointSelector selector, MatcherEndpoint[] candidates)
+            public SelectorRouter(EndpointSelector selector, RouteEndpoint[] candidates)
             {
                 _selector = selector;
                 _candidates = candidates;

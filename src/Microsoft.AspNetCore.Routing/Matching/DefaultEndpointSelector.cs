@@ -33,7 +33,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 _selectorPolicies[i].Apply(httpContext, candidateSet);
             }
 
-            MatcherEndpoint endpoint = null;
+            RouteEndpoint endpoint = null;
             RouteValueDictionary values = null;
             int? foundScore = null;
             for (var i = 0; i < candidateSet.Count; i++)
@@ -84,7 +84,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
         {
             // If we get here it's the result of an ambiguity - we're OK with this
             // being a littler slower and more allocatey.
-            var matches = new List<MatcherEndpoint>();
+            var matches = new List<RouteEndpoint>();
             for (var i = 0; i < candidates.Count; i++)
             {
                 ref var state = ref candidates[i];

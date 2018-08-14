@@ -38,7 +38,7 @@ namespace Microsoft.AspNetCore.Routing.Internal
             var endpoints = dataSource.Endpoints;
             for (var i = 0; i < endpoints.Count; i++)
             {
-                var endpoint = endpoints[i] as MatcherEndpoint;
+                var endpoint = endpoints[i] as RouteEndpoint;
                 if (endpoint != null)
                 {
                     builder.AddEndpoint(endpoint);

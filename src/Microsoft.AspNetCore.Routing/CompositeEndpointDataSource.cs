@@ -132,7 +132,7 @@ namespace Microsoft.AspNetCore.Routing
                 var sb = new StringBuilder();
                 foreach (var endpoint in _endpoints)
                 {
-                    if (endpoint is MatcherEndpoint matcherEndpoint)
+                    if (endpoint is RouteEndpoint matcherEndpoint)
                     {
                         var template = matcherEndpoint.RoutePattern.RawText;
                         template = string.IsNullOrEmpty(template) ? "\"\"" : template;
@@ -164,7 +164,7 @@ namespace Microsoft.AspNetCore.Routing
                     }
                     else
                     {
-                        sb.Append("Non-MatcherEndpoint. DisplayName:");
+                        sb.Append("Non-RouteEndpoint. DisplayName:");
                         sb.AppendLine(endpoint.DisplayName);
                     }
                 }

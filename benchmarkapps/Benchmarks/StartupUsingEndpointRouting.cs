@@ -21,7 +21,7 @@ namespace Benchmarks
 
             var endpointDataSource = new DefaultEndpointDataSource(new[]
                 {
-                    new MatcherEndpoint(
+                    new RouteEndpoint(
                         invoker: (httpContext) =>
                         {
                             var response = httpContext.Response;

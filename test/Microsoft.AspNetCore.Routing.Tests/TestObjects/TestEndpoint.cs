@@ -6,7 +6,7 @@ namespace Microsoft.AspNetCore.Routing.TestObjects
     internal class TestEndpoint : Endpoint
     {
         public TestEndpoint(EndpointMetadataCollection metadata, string displayName)
-            : base(metadata, displayName)
+            : base(invoker: null, metadata, displayName)
         {
         }
     }

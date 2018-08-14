@@ -8,7 +8,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
     /// </summary>
     public struct CandidateState
     {
-        internal CandidateState(MatcherEndpoint endpoint, int score)
+        internal CandidateState(RouteEndpoint endpoint, int score)
         {
             Endpoint = endpoint;
             Score = score;
@@ -20,7 +20,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
         /// <summary>
         /// Gets the <see cref="Routing.Endpoint"/>.
         /// </summary>
-        public MatcherEndpoint Endpoint { get; }
+        public RouteEndpoint Endpoint { get; }
 
         /// <summary>
         /// Gets the score of the <see cref="Routing.Endpoint"/> within the current

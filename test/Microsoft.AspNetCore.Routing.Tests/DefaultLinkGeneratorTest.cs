@@ -25,7 +25,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_Success()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}");
             var linkGenerator = CreateLinkGenerator(endpoint);
 
             // Act
@@ -40,7 +40,7 @@ namespace Microsoft.AspNetCore.Routing
         {
             // Arrange
             var expectedMessage = "Could not find a matching endpoint to generate a link.";
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
 
             // Act & Assert
@@ -53,7 +53,7 @@ namespace Microsoft.AspNetCore.Routing
         public void TryGetLink_Fail()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
 
             // Act
@@ -70,9 +70,9 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_MultipleEndpoints_Success()
         {
             // Arrange
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/{id?}");
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
-            var endpoint3 = EndpointFactory.CreateMatcherEndpoint("{controller}");
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/{id?}");
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
+            var endpoint3 = EndpointFactory.CreateRouteEndpoint("{controller}");
             var linkGenerator = CreateLinkGenerator(endpoint1, endpoint2, endpoint3);
 
             // Act
@@ -86,9 +86,9 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_MultipleEndpoints_Success2()
         {
             // Arrange
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/{id}");
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
-            var endpoint3 = EndpointFactory.CreateMatcherEndpoint("{controller}");
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/{id}");
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
+            var endpoint3 = EndpointFactory.CreateRouteEndpoint("{controller}");
             var linkGenerator = CreateLinkGenerator(endpoint1, endpoint2, endpoint3);
 
             // Act
@@ -102,7 +102,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_EncodesValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { controller = "Home", action = "Index" });
 
@@ -117,7 +117,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_ForListOfStrings()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var context = CreateHttpContext(ambientValues: new { controller = "Home", action = "Index" });
 
@@ -132,7 +132,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_ForListOfInts()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { controller = "Home", action = "Index" });
 
@@ -147,7 +147,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_ForList_Empty()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { controller = "Home", action = "Index" });
 
@@ -162,7 +162,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_ForList_StringWorkaround()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { controller = "Home", action = "Index" });
 
@@ -179,7 +179,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_Success_AmbientValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { controller = "Home" });
 
@@ -194,7 +194,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_GeneratesLowercaseUrl_SetOnRouteOptions()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(new[] { endpoint }, new RouteOptions() { LowercaseUrls = true });
             var httpContext = CreateHttpContext(ambientValues: new { controller = "Home" });
 
@@ -209,7 +209,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_GeneratesLowercaseQueryString_SetOnRouteOptions()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = true, LowercaseQueryStrings = true });
@@ -228,7 +228,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_GeneratesLowercaseQueryString_OnlyIfLowercaseUrlIsTrue_SetOnRouteOptions()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = false, LowercaseQueryStrings = true });
@@ -247,7 +247,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_AppendsTrailingSlash_SetOnRouteOptions()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { AppendTrailingSlash = true });
@@ -264,7 +264,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_GeneratesLowercaseQueryStringAndTrailingSlash_SetOnRouteOptions()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = true, LowercaseQueryStrings = true, AppendTrailingSlash = true });
@@ -283,7 +283,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_LowercaseUrlSetToTrue_OnRouteOptions_OverridenByCallsiteValue()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = true });
@@ -306,7 +306,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_LowercaseUrlSetToFalse_OnRouteOptions_OverridenByCallsiteValue()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = false });
@@ -329,7 +329,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_LowercaseUrlQueryStringsSetToTrue_OnRouteOptions_OverridenByCallsiteValue()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = true, LowercaseQueryStrings = true });
@@ -353,7 +353,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_LowercaseUrlQueryStringsSetToFalse_OnRouteOptions_OverridenByCallsiteValue()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { LowercaseUrls = false, LowercaseQueryStrings = false });
@@ -377,7 +377,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_AppendTrailingSlashSetToFalse_OnRouteOptions_OverridenByCallsiteValue()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}");
             var linkGenerator = CreateLinkGenerator(
                 new[] { endpoint },
                 new RouteOptions() { AppendTrailingSlash = false });
@@ -400,7 +400,7 @@ namespace Microsoft.AspNetCore.Routing
         public void RouteGenerationRejectsConstraints()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "{p1}/{p2}",
                 defaults: new { p2 = "catchall" },
                 constraints: new { p2 = "\\d{4}" });
@@ -421,7 +421,7 @@ namespace Microsoft.AspNetCore.Routing
         public void RouteGenerationAcceptsConstraints()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "{p1}/{p2}",
                 defaults: new { p2 = "catchall" },
                 constraints: new { p2 = new RegexRouteConstraint("\\d{4}"), });
@@ -443,7 +443,7 @@ namespace Microsoft.AspNetCore.Routing
         public void RouteWithCatchAllRejectsConstraints()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "{p1}/{*p2}",
                 defaults: new { p2 = "catchall" },
                 constraints: new { p2 = new RegexRouteConstraint("\\d{4}") });
@@ -464,7 +464,7 @@ namespace Microsoft.AspNetCore.Routing
         public void RouteWithCatchAllAcceptsConstraints()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "{p1}/{*p2}",
                 defaults: new { p2 = "catchall" },
                 constraints: new { p2 = new RegexRouteConstraint("\\d{4}") });
@@ -497,7 +497,7 @@ namespace Microsoft.AspNetCore.Routing
                         It.IsAny<RouteDirection>()))
                 .Returns(true)
                 .Verifiable();
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "{p1}/{p2}",
                 defaults: new { p2 = "catchall" },
                 constraints: new { p2 = target.Object });
@@ -523,7 +523,7 @@ namespace Microsoft.AspNetCore.Routing
         {
             // Arrange
             var constraint = new CapturingConstraint();
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "slug/Home/Store",
                 defaults: new { controller = "Home", action = "Store" },
                 constraints: new { c = constraint });
@@ -552,7 +552,7 @@ namespace Microsoft.AspNetCore.Routing
         {
             // Arrange
             var constraint = new CapturingConstraint();
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "slug/Home/Store",
                 defaults: new { controller = "Home", action = "Store", otherthing = "17" },
                 constraints: new { c = constraint });
@@ -575,7 +575,7 @@ namespace Microsoft.AspNetCore.Routing
         {
             // Arrange
             var constraint = new CapturingConstraint();
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "slug/{controller}/{action}",
                 defaults: new { action = "Index" },
                 constraints: new { c = constraint, });
@@ -599,7 +599,7 @@ namespace Microsoft.AspNetCore.Routing
         {
             // Arrange
             var constraint = new CapturingConstraint();
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "slug/Home/Store",
                 defaults: new { controller = "Home", action = "Store", otherthing = "17", thirdthing = "13" },
                 constraints: new { c = constraint, });
@@ -624,7 +624,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_Success()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id:int}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { });
@@ -644,7 +644,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_NonMatchingvalue()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { id = "int" });
@@ -665,7 +665,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_OptionalParameter_ValuePresent()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id:int?}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { });
@@ -683,7 +683,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_OptionalParameter_ValueNotPresent()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id?}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { id = "int" });
@@ -701,7 +701,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_OptionalParameter_ValuePresent_ConstraintFails()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id?}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { id = "int" });
@@ -722,7 +722,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_MultipleInlineConstraints()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id:int:range(1,20)}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { });
@@ -742,7 +742,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_InlineConstraints_CompositeInlineConstraint_Fails()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{id:int:range(1,20)}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { });
@@ -764,7 +764,7 @@ namespace Microsoft.AspNetCore.Routing
         {
             // Arrange
             var constraint = new MaxLengthRouteConstraint(20);
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "Home/Index/{name}",
                 defaults: new { controller = "Home", action = "Index" },
                 constraints: new { name = constraint });
@@ -784,7 +784,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_ParameterPresentInValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/{name?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/{name?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { });
 
@@ -801,7 +801,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_ParameterNotPresentInValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/{name?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/{name?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { });
 
@@ -818,7 +818,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_ParameterPresentInValuesAndDefaults()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "{controller}/{action}/{name}",
                 defaults: new { name = "default-products" });
             var linkGenerator = CreateLinkGenerator(endpoint);
@@ -837,7 +837,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_ParameterNotPresentInValues_PresentInDefaults()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "{controller}/{action}/{name}",
                 defaults: new { name = "products" });
             var linkGenerator = CreateLinkGenerator(endpoint);
@@ -856,7 +856,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_ParameterNotPresentInTemplate_PresentInValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/{name}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/{name}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { });
 
@@ -873,7 +873,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_FollowedByDotAfterSlash_ParameterPresent()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 template: "{controller}/{action}/.{name?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { });
@@ -891,7 +891,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_FollowedByDotAfterSlash_ParameterNotPresent()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/.{name?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/.{name?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { });
 
@@ -906,7 +906,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameter_InSimpleSegment()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("{controller}/{action}/{name?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("{controller}/{action}/{name?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { });
 
@@ -921,7 +921,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_TwoOptionalParameters_OneValueFromAmbientValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("a/{b=15}/{c?}/{d?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("a/{b=15}/{c?}/{d?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { c = "17" });
 
@@ -936,7 +936,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_OptionalParameterAfterDefault_OneValueFromAmbientValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("a/{b=15}/{c?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("a/{b=15}/{c?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { c = "17" });
 
@@ -951,7 +951,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetLink_TwoOptionalParametersAfterDefault_LastValueFromAmbientValues()
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint("a/{b=15}/{c?}/{d?}");
+            var endpoint = EndpointFactory.CreateRouteEndpoint("a/{b=15}/{c?}/{d?}");
             var linkGenerator = CreateLinkGenerator(endpoint);
             var httpContext = CreateHttpContext(ambientValues: new { d = "17" });
 
@@ -1044,7 +1044,7 @@ namespace Microsoft.AspNetCore.Routing
             object defaults)
         {
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "Products/Edit/{id}",
                 requiredValues: requiredValues,
                 defaults: defaults);
@@ -1068,7 +1068,7 @@ namespace Microsoft.AspNetCore.Routing
             // Verifying that discarding works in general usage case i.e when keys are not like controller, action etc.
 
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "Products/Edit/{id}",
                 requiredValues: new { c = "Products", a = "Edit" },
                 defaults: new { c = "Products", a = "Edit" });
@@ -1092,7 +1092,7 @@ namespace Microsoft.AspNetCore.Routing
             // Verifying that discarding works in general usage case i.e when keys are not like controller, action etc.
 
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "Products/Edit/{id}",
                 requiredValues: new { c = "Products", a = "Edit" },
                 defaults: new { c = "Products", a = "Edit" });
@@ -1198,7 +1198,7 @@ namespace Microsoft.AspNetCore.Routing
             // Linking to a different action on the same controller
 
             // Arrange
-            var endpoint = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint = EndpointFactory.CreateRouteEndpoint(
                 "Products/Edit/{id}",
                 requiredValues: requiredValues,
                 defaults: defaults);
@@ -1223,11 +1223,11 @@ namespace Microsoft.AspNetCore.Routing
             var services = GetBasicServices();
             services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<IEndpointFinder<INameMetadata>, EndpointFinderByName>());
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Products/Details/{id}",
                 requiredValues: new { controller = "Products", action = "Details" },
                 defaults: new { controller = "Products", action = "Details" });
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint(
                 "Customers/Details/{id}",
                 requiredValues: new { controller = "Customers", action = "Details" },
                 defaults: new { controller = "Customers", action = "Details" },
@@ -1254,11 +1254,11 @@ namespace Microsoft.AspNetCore.Routing
             var services = GetBasicServices();
             services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<IEndpointFinder<INameMetadata>, EndpointFinderByName>());
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Products/Details/{id}",
                 requiredValues: new { controller = "Products", action = "Details" },
                 defaults: new { controller = "Products", action = "Details" });
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint(
                 "Customers/Details/{id}",
                 requiredValues: new { controller = "Customers", action = "Details" },
                 defaults: new { controller = "Customers", action = "Details" },
@@ -1286,7 +1286,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetTemplate_ByRouteValues_ReturnsTemplate()
         {
             // Arrange
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Edit/{id}",
                 requiredValues: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null });
@@ -1309,7 +1309,7 @@ namespace Microsoft.AspNetCore.Routing
         public void GetTemplate_ByRouteName_ReturnsTemplate()
         {
             // Arrange
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Edit/{id}",
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 metadata: new RouteValuesAddressMetadata(
@@ -1333,13 +1333,13 @@ namespace Microsoft.AspNetCore.Routing
         public void GetTemplate_ByRouteName_ReturnsTemplate_WithMultipleEndpoints()
         {
             // Arrange
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Edit/{id}",
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 metadata: new RouteValuesAddressMetadata(
                     "default",
                     new RouteValueDictionary(new { controller = "Product", action = "Edit", area = (string)null, page = (string)null })));
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Details/{id}",
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 metadata: new RouteValuesAddressMetadata(
@@ -1366,11 +1366,11 @@ namespace Microsoft.AspNetCore.Routing
             var services = GetBasicServices();
             services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<IEndpointFinder<INameMetadata>, EndpointFinderByName>());
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Edit/{id}",
                 requiredValues: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null });
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint(
                 "Customers/Details/{id}",
                 requiredValues: new { controller = "Customers", action = "Details" },
                 defaults: new { controller = "Customers", action = "Details" },
@@ -1396,11 +1396,11 @@ namespace Microsoft.AspNetCore.Routing
             var services = GetBasicServices();
             services.TryAddEnumerable(
                 ServiceDescriptor.Singleton<IEndpointFinder<INameMetadata>, EndpointFinderByName>());
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Edit/{id}",
                 requiredValues: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null });
-            var endpoint2 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint2 = EndpointFactory.CreateRouteEndpoint(
                 "Customers/Details/{id}",
                 requiredValues: new { controller = "Customers", action = "Details" },
                 defaults: new { controller = "Customers", action = "Details" },
@@ -1430,7 +1430,7 @@ namespace Microsoft.AspNetCore.Routing
         public void MakeUrl_GeneratesLink_WithExtraRouteValues()
         {
             // Arrange
-            var endpoint1 = EndpointFactory.CreateMatcherEndpoint(
+            var endpoint1 = EndpointFactory.CreateRouteEndpoint(
                 "Product/Edit/{id}",
                 requiredValues: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null },
                 defaults: new { controller = "Product", action = "Edit", area = (string)null, page = (string)null });

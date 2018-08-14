@@ -12,10 +12,10 @@ namespace Microsoft.AspNetCore.Routing.Matching
     // to establish a lower bound for perf comparisons.
     internal sealed class TrivialMatcher : Matcher
     {
-        private readonly MatcherEndpoint _endpoint;
+        private readonly RouteEndpoint _endpoint;
         private readonly Candidate[] _candidates;
 
-        public TrivialMatcher(MatcherEndpoint endpoint)
+        public TrivialMatcher(RouteEndpoint endpoint)
         {
             _endpoint = endpoint;
 

@@ -146,14 +146,14 @@ namespace Microsoft.AspNetCore.Routing
             Assert.False(token.HasChanged);
         }
 
-        private MatcherEndpoint CreateEndpoint(
+        private RouteEndpoint CreateEndpoint(
             string template,
             object defaults = null,
             int order = 0,
             string routeName = null)
         {
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template, defaults, constraints: null),
                 order,
                 EndpointMetadataCollection.Empty,

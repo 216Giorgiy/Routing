@@ -23,7 +23,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
             MatcherAssert.AssertMatch(feature, endpoint, keys, values);
         }
 
-        internal override Matcher CreateMatcher(params MatcherEndpoint[] endpoints)
+        internal override Matcher CreateMatcher(params RouteEndpoint[] endpoints)
         {
             var services = new ServiceCollection()
                 .AddLogging()

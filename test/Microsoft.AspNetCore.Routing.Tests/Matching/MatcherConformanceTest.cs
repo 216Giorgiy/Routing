@@ -11,7 +11,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
 {
     public abstract partial class MatcherConformanceTest
     {
-        internal abstract Matcher CreateMatcher(params MatcherEndpoint[] endpoints);
+        internal abstract Matcher CreateMatcher(params RouteEndpoint[] endpoints);
 
         internal static (HttpContext httpContext, IEndpointFeature feature) CreateContext(string path)
         {
@@ -34,21 +34,21 @@ namespace Microsoft.AspNetCore.Routing.Matching
             return services.BuildServiceProvider();
         }
 
-        internal static MatcherEndpoint CreateEndpoint(
+        internal static RouteEndpoint CreateEndpoint(
             string template, 
             object defaults = null,
             object constraints = null,
             int? order = null)
         {
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template, defaults, constraints),
                 order ?? 0,
                 EndpointMetadataCollection.Empty,
                 "endpoint: " + template);
         }
 
-        internal (Matcher matcher, MatcherEndpoint endpoint) CreateMatcher(string template)
+        internal (Matcher matcher, RouteEndpoint endpoint) CreateMatcher(string template)
         {
             var endpoint = CreateEndpoint(template);
             return (CreateMatcher(endpoint), endpoint);

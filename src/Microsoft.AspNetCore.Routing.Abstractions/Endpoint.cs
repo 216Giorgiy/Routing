@@ -1,6 +1,9 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+
 namespace Microsoft.AspNetCore.Routing
 {
     /// <summary>
@@ -8,9 +11,12 @@ namespace Microsoft.AspNetCore.Routing
     /// </summary>
     public abstract class Endpoint
     {
+        internal static readonly RequestDelegate EmptyInvoker = (context) => Task.CompletedTask;
+
         /// <summary>
         /// Creates a new instance of <see cref="Endpoint"/>.
         /// </summary>
+        /// <param name="invoker">The delegate used to processes requests for the endpoint.</param>
         /// <param name="metadata">
         /// The endpoint <see cref="EndpointMetadataCollection"/>. May be null.
         /// </param>
@@ -18,10 +24,12 @@ namespace Microsoft.AspNetCore.Routing
         /// The informational display name of the endpoint. May be null.
         /// </param>
         protected Endpoint(
+            RequestDelegate invoker,
             EndpointMetadataCollection metadata,
             string displayName)
         {
             // All are allowed to be null
+            Invoker = invoker;
             Metadata = metadata ?? EndpointMetadataCollection.Empty;
             DisplayName = displayName;
         }
@@ -35,6 +43,11 @@ namespace Microsoft.AspNetCore.Routing
         /// Gets the collection of metadata associated with this endpoint.
         /// </summary>
         public EndpointMetadataCollection Metadata { get; }
+
+        /// <summary>
+        /// Gets the delegate used to processes requests for the endpoint.
+        /// </summary>
+        public RequestDelegate Invoker { get; }
 
         public override string ToString() => DisplayName ?? base.ToString();
     }

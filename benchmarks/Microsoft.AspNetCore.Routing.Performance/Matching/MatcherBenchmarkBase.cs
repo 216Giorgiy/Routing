@@ -14,7 +14,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
 {
     public abstract class MatcherBenchmarkBase
     {
-        private protected MatcherEndpoint[] Endpoints;
+        private protected RouteEndpoint[] Endpoints;
         private protected HttpContext[] Requests;
 
         // The older routing implementations retrieve services when they first execute.
@@ -32,7 +32,7 @@ namespace Microsoft.AspNetCore.Routing.Matching
             return CreateServices().GetRequiredService<DfaMatcherBuilder>();
         }
 
-        private protected static MatcherEndpoint CreateEndpoint(string template, string httpMethod = null)
+        private protected static RouteEndpoint CreateEndpoint(string template, string httpMethod = null)
         {
             var metadata = new List<object>();
             if (httpMethod != null)
@@ -40,8 +40,8 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 metadata.Add(new HttpMethodMetadata(new string[] { httpMethod, }));
             }
 
-            return new MatcherEndpoint(
-                MatcherEndpoint.EmptyInvoker,
+            return new RouteEndpoint(
+                RouteEndpoint.EmptyInvoker,
                 RoutePatternFactory.Parse(template),
                 0,
                 new EndpointMetadataCollection(metadata),
@@ -78,8 +78,8 @@ namespace Microsoft.AspNetCore.Routing.Matching
                 var message = new StringBuilder();
                 message.AppendLine($"Validation failed for request {Array.IndexOf(Requests, httpContext)}");
                 message.AppendLine($"{httpContext.Request.Method} {httpContext.Request.Path}");
-                message.AppendLine($"expected: '{((MatcherEndpoint)expected)?.DisplayName ?? "null"}'");
-                message.AppendLine($"actual:   '{((MatcherEndpoint)actual)?.DisplayName ?? "null"}'");
+                message.AppendLine($"expected: '{((RouteEndpoint)expected)?.DisplayName ?? "null"}'");
+                message.AppendLine($"actual:   '{((RouteEndpoint)actual)?.DisplayName ?? "null"}'");
                 throw new InvalidOperationException(message.ToString());
             }
         }

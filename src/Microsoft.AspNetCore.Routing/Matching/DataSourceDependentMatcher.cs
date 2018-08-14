@@ -36,10 +36,10 @@ namespace Microsoft.AspNetCore.Routing.Matching
             var builder = _matcherBuilderFactory();
             for (var i = 0; i < endpoints.Count; i++)
             {
-                // By design we only look at MatcherEndpoint here. It's possible to
+                // By design we only look at RouteEndpoint here. It's possible to
                 // register other endpoint types, which are non-routable, and it's
                 // ok that we won't route to them.
-                var endpoint = endpoints[i] as MatcherEndpoint;
+                var endpoint = endpoints[i] as RouteEndpoint;
                 if (endpoint != null)
                 {
                     builder.AddEndpoint(endpoint);
